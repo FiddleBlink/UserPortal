@@ -1,0 +1,28 @@
+{% load static %}
+
+<div class="login-header box-shadow">
+    <div class="container-fluid d-flex justify-content-between align-items-center">
+        <div class="brand-logo">
+            <a href="{% url 'home' %}">
+                <img src="{% static 'images/deskapp-logo.svg' %}" alt="">
+            </a>
+        </div>
+        <div class="login-menu">
+            {% if request.user.is_authenticated %}
+            <ul>
+                <li>{{request.user}}</li>
+            </ul>
+            {% else%}
+            {% if page == 'login' %}
+            <ul>
+                <li><a href="{% url 'register' %}">Register</a></li>
+            </ul>
+            {% else %}
+            <ul>
+                <li><a href="{% url 'login' %}">Login</a></li>
+            </ul>
+            {% endif %}
+            {% endif %}
+        </div>
+    </div>
+</div>
