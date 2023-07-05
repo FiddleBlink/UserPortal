@@ -25,14 +25,13 @@
             {% endfor %}
             <div>
                 <label for="Departments">Departments</label>
-                <input required type="text" name="dept" list="dept-list" />
-                <datalist id="dept-list">
-                    <select id="Departments">
-                        {% for dept in depts %}
-                        <option value="{{dept.name}}">{{dept.name}}</option>
-                        {% endfor %}
-                    </select>
-                </datalist>
+                <select id="Departments" name="dept">
+                    <option value="null">None</option>
+                    {% for dept in depts %}
+                    <option value="{{dept.name}}">{{dept.name}}
+                    </option>
+                    {% endfor %}
+                </select>
             </div>
             <button type="submit">Add</button>
         </form>

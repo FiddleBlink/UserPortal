@@ -20,7 +20,7 @@ class CustomUser(AbstractUser):
     department = models.ForeignKey(Department, on_delete=models.CASCADE, null=True, blank=True)
     designation = models.ForeignKey(Designation, on_delete=models.CASCADE, null=True, blank=True)
     manager = models.CharField(max_length=100, null=True, blank=True)
-    profilepic = models.ImageField(upload_to='uploads/')
+    profilepic = models.ImageField(upload_to='uploads/', null=True, blank=True)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []

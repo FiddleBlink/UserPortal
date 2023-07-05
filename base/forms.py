@@ -1,17 +1,16 @@
 from django.contrib.auth.forms import UserCreationForm
-from django.forms import ModelForm
-
+from django.forms import ModelForm, ModelChoiceField, Form
 from .models import *
 
 class CustomUserCreationForm(UserCreationForm):
     class Meta:
         model = CustomUser
-        fields = ('email','public_visibility','password1','password2','birth_year','address')
+        fields = ('first_name', 'email', 'birth_year','password1','password2')
 
 class profiledit(ModelForm):
     class Meta:
         model = CustomUser
-        fields = ('public_visibility', 'address', 'profilepic')
+        fields = ('first_name', 'profilepic', 'public_visibility', 'address')
 
 class newdept(ModelForm):
     class Meta:

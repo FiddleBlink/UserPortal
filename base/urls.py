@@ -12,4 +12,7 @@ urlpatterns = [
 
     path('designation/', views.createdepartment, name='department'),
     path('department/', views.createdesignation, name='designation'),
+
+    path('getdesig/', views.get_designations, name="getdesigs"),
+    path('getmanager/', views.get_managers, name="getmanager")
 ]

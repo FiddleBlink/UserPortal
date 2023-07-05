@@ -12,7 +12,20 @@
                 {% include 'navbar.html' %}
 
                 {% if request.user.is_authenticated %}
-                <h1>Hello {{request.user}}</h1>
+                <h1>Hello {{request.user.first_name}}</h1>
+                <ul>
+                        <li><a href="{% url 'profile' request.user.id %}">Complete Profile</a></li>
+                </ul>
+                {% if request.user.is_superuser %}
+                <h2>Add new departments and designations</h2>
+                <ul>
+                        <li><a href="{% url 'department' %}">add new departments</a></li>
+                        <li><a href="{% url 'designation' %}">add new designations</a></li>
+                </ul>
+                <h2>DashBoard</h2>
+                <a href="{% url 'dashboard' %}"></a>
                 {% endif %}
+                {% endif %}
+                
         </body>
 </html>

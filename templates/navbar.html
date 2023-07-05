@@ -10,7 +10,6 @@
         <div class="login-menu">
             {% if request.user.is_authenticated %}
             <ul>
-                <li><a href="{% url 'profile' request.user.id %}">My Profile</a></li>
                 <li><a href="{% url 'logout' %}">Logout</a></li>
             </ul>
             {% else%}
