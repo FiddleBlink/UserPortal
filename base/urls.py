@@ -14,5 +14,6 @@ urlpatterns = [
     path('department/', views.createdesignation, name='designation'),
 
     path('getdesig/', views.get_designations, name="getdesigs"),
-    path('getmanager/', views.get_managers, name="getmanager")
+    path('getmanager/', views.get_managers, name="getmanager"),
+    path('getusers/', views.get_users, name='getusers'),
 ]

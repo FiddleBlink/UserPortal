@@ -1,10 +1,11 @@
 from django.shortcuts import render, redirect
 from .forms import CustomUserCreationForm, profiledit, newdept, newdesig
 from django.contrib.auth import authenticate, login, logout
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.contrib.auth import get_user_model
 from django.contrib import messages
 from .models import Department, Designation, CustomUser
+from django.core import serializers
 
 User = get_user_model()
 
@@ -167,3 +168,8 @@ def get_managers(request):
 
 
     return HttpResponse(options)
+
+def get_users(request):
+    users = CustomUser.objects.all()
+    data = serializers.serialize("json", users)
+    return JsonResponse(data, safe=False)
