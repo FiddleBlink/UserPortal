@@ -139,14 +139,12 @@ def get_designations(request):
     designations = Designation.objects.filter(department__name = departments)
     options = ''
 
-    print("----------------------------------------------------",user.designation.Title)
-
     for designation in designations:
         is_manager = False
         if designation.Title == 'Manager':
             for users in allusers:
                 if users.department != None and users.department.name == departments and users.designation.Title == 'Manager':
-                    if user.department.name != departments or (user.department.name == departments and user.designation.Title != 'Manager'):
+                    if (user.department == None) or (user.department.name != departments or (user.department.name == departments and user.designation.Title != 'Manager')):
                         is_manager = True
         
         if is_manager == False:
