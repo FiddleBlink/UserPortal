@@ -139,21 +139,21 @@ def get_designations(request):
     designations = Designation.objects.filter(department__name = departments)
     options = ''
 
+    print("----------------------------------------------------",user.designation.Title)
+
     for designation in designations:
         is_manager = False
         if designation.Title == 'Manager':
             for users in allusers:
-                if users.department != None:
-                    if users.designation.Title == 'Manager' and users.department.name == departments:
-                        if user.designation == None or user.designation.Title != 'Manager':
-                                is_manager = True
+                if users.department != None and users.department.name == departments and users.designation.Title == 'Manager':
+                    if user.department.name != departments or (user.department.name == departments and user.designation.Title != 'Manager'):
+                        is_manager = True
         
         if is_manager == False:
             if user.designation != None:
                 options += f'<option value="{designation.pk}" {"selected" if designation.Title == user.designation.Title else ""}>{designation.Title}</option>'
             else:
                 options += f'<option value="{designation.pk}">{designation.Title}</option>'
-
 
     return HttpResponse(options)
 
