@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 
-{% load static %}
+<!-- loading the static files -->
+{% load static %} 
 
 <html>
 
@@ -20,7 +21,10 @@
         <body>
                 {% include 'navbar.html' %}
                 <div class="container w-74">
+
+                <!-- Displaying the options for user if they are authenticated -->
                 {% if request.user.is_authenticated %}
+
                 <div class="row d-flex align-content-center justify-content-center mt-5">
                         <div class="col-md-6">
                                 <h1>Hello {{request.user.first_name}}</h1>
@@ -28,8 +32,13 @@
                                         <li><a href="{% url 'profile' request.user.id %}">Complete Profile</a></li>
                                 </ul>
                         </div>
+
+                <!-- If the user is super user then he can see the following options -->
+                {% if request.user.is_superuser %}
+
                         <div class="col-md-6">
-                                {% if request.user.is_superuser %}
+
+                                
                                 <h2>Add new departments and designations</h2>
                                 <ul>
                                         <li><a href="{% url 'department' %}">add new departments</a></li>
@@ -55,15 +64,15 @@
                                         <th>Profile Pic</th>
                                 </thead>
                                 <tbody id="TableOfUsers">
-
+                                        <!-- The body of this table is empty as it will be populated using js -->
                                 </tbody>
                         </table>
                 </div>
-                {% endif %}
-                {% endif %}
+                {% endif %}     <!-- End condition for super user -->
+                {% endif %}     <!-- End condition for authentication check -->
                 </div>
 
-                <script src="{% static 'js/Dynamictable.js' %}"></script>
+                <script src="{% static 'js/Dynamictable.js' %}"></script> <!-- This js file is used to dynamically populate the data of the table body -->
                 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
                         integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
                         crossorigin="anonymous"></script>

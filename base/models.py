@@ -25,4 +25,4 @@ class CustomUser(AbstractUser):
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
 
-    objects = CustomUserManager()
+    objects = CustomUserManager()       #used to specifiy to use the custom manager instead of the default one

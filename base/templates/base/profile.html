@@ -66,29 +66,13 @@
             </div>
         </div>
 
-        <!-- <script>
-            function updateDesignation(selectedDepartment){
-                var xhr = new XMLHttpRequest();
-                var url = '/getdept/?department=' + encodeURIComponent(selectedDepartment);
-                xhr.open('GET', url, true);
-
-                xhr.onreadystatechange = function() {
-                    if(xhr.status === 4 && xhr.status === 200){
-                        var designationDropdown = document.getElementById('Designation');
-                        designationDropdown.innerHTML = xhr.responseText;
-                    }
-                };
-                xhr.send()
-            }
-        </script> -->
-
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
         <script>
-            $('#Departments').change(function(){
-                var selectedDepartment = $(this).val();
+            $('#Departments').change(function(){        //This script is run if the department selection is changed
+                var selectedDepartment = $(this).val();     //This takes the value of the current department selection
 
-                $.ajax({
+                $.ajax({        //Sending an AJAX GET response to server to get the dynamic values for the department
                     url: '/getdesig/',
                     type: 'GET',
                     data: { department: selectedDepartment },
@@ -97,7 +81,7 @@
                     }
                 });
 
-                $.ajax({
+                $.ajax({        //Sending an AJAX GET response to server to get the dynamic values for the manager
                     url: '/getmanager/',
                     type: 'GET',
                     data: { department: selectedDepartment },
@@ -107,11 +91,11 @@
                 });
             });
 
-            $(document).ready( function () {
+            $(document).ready( function () {        //this script is run everytime the page is reload
 
                 var selectedDepartment = $('#Departments').val();
 
-                $.ajax({
+                $.ajax({        //Sending an AJAX GET response to server to get the dynamic values for the department
                     url: '/getdesig/',
                     type: 'GET',
                     data: { department: selectedDepartment },
@@ -120,7 +104,7 @@
                     }
                 });
 
-                $.ajax({
+                $.ajax({        //Sending an AJAX GET response to server to get the dynamic values for the manager
                     url: '/getmanager/',
                     type: 'GET',
                     data: { department: selectedDepartment },
