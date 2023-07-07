@@ -1,6 +1,8 @@
 var userList = [] 
 
-$("#ShowUsers").click(function () {     //Everytime the show users button is clicked this script will run
+$("#ShowUsers").click(function () {
+    const tableBody = document.getElementById("TableOfUsers");
+    tableBody.innerHTML = "";    //Everytime the show users button is clicked this script will run
     getusers();     
 });
 
