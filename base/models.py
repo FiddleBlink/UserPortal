@@ -10,6 +10,9 @@ class CustomUser(AbstractUser):
     public_visibility = models.BooleanField(default=False)
     birth_year = models.CharField(max_length=4)
     address = models.TextField(null=True)
+    department = models.CharField()
+    designation = models.CharField()
+    manager = models.BooleanField(default=False)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
