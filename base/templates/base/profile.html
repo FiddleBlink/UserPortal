@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+
+{% load static %}
+
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Profile</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+            integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    </head>
+
+    <body>
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        <div class="container w-75">
+            <div class="row d-flex justify-content-center">
+                <div class="col-md-6">
+                    <h1>
+                        Hello {{request.user}}
+                    </h1>
+                </div>
+                <div class="col-md-6 d-flex align-items-end justify-content-end">
+                    <ul>
+                        <li><a href="{% url 'logout' %}">Logout</a></li>
+                        <li><a href="{% url 'home' %}">Home</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row d-flex justify-content-center">
+                <div class="col-md-11">
+                    <h2>User details</h2>
+                    <form action="" method="POST" enctype="multipart/form-data" id="myform">
+                        {% csrf_token %}
+                        {% for fields in form %}
+                        <div>
+                            <label>{{fields.label}}</label>
+                            {{fields}}
+                        </div>
+                        {% endfor %}
+                
+                        <div>
+                            <label for="Departments">Departments</label>
+                            <select id="Departments" name="dept">
+                                {% for dept in depts %}
+                                <option value="{{dept.name}}" {% if dept.name == user.department.name %} selected {% endif %}>
+                                    {{dept.name}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                
+                        <div>
+                            <label for="Designation">Designation</label>
+                            <select id="Designation" name="desig">
+                            </select>
+                        </div>
+                
+                        <div>
+                            <label for="Manager">Manager</label>
+                            <select id="Manager" name="manager">
+                            </select>
+                        </div>
+                
+                        <button type="submit">Submit</button>
+                    </form>
+                
+                </div>
+            </div>
+        </div>
+
+
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+        <script>
+            $('#Departments').change(function () {        //This script is run if the department selection is changed
+                var selectedDepartment = $(this).val();     //This takes the value of the current department selection
+
+                $.ajax({        //Sending an AJAX GET response to server to get the dynamic values for the department
+                    url: '/getdesig/',
+                    type: 'GET',
+                    data: { department: selectedDepartment },
+                    success: function (response) {
+                        $('#Designation').html(response);
+                    }
+                });
+
+                $.ajax({        //Sending an AJAX GET response to server to get the dynamic values for the manager
+                    url: '/getmanager/',
+                    type: 'GET',
+                    data: { department: selectedDepartment },
+                    success: function (response) {
+                        $('#Manager').html(response);
+                    }
+                });
+            });
+
+            $(document).ready(function () {        //this script is run everytime the page is reload
+
+                var selectedDepartment = $('#Departments').val();
+
+                $.ajax({        //Sending an AJAX GET response to server to get the dynamic values for the department
+                    url: '/getdesig/',
+                    type: 'GET',
+                    data: { department: selectedDepartment },
+                    success: function (response) {
+                        $('#Designation').html(response);
+                    }
+                });
+
+                $.ajax({        //Sending an AJAX GET response to server to get the dynamic values for the manager
+                    url: '/getmanager/',
+                    type: 'GET',
+                    data: { department: selectedDepartment },
+                    success: function (response) {
+                        $('#Manager').html(response);
+                    }
+                });
+            });
+        </script>
+
+        <script src="{% static 'js/Dynamictable.js' %}"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+            crossorigin="anonymous"></script>
+    </body>
+
+</html>
